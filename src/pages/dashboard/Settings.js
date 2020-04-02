@@ -5,8 +5,10 @@ const imgSrc = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAE0AAAAjCAYAAADR94
 export default class Settings extends Component {
 
 
-  syncRecords(){
-
+  syncRecords(e){
+    let session = localStorage.getItem('JWBSID');
+    e.preventDefault();
+    window.location.href=`https://api.baghalati.com/api/pos/hikeup-authorize?user_token=${session}`;
   }
 
   render() {

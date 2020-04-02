@@ -1,18 +1,20 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
-import { Route, Link, BrowserRouter } from 'react-router-dom'
+import { Route, Link, BrowserRouter, Switch } from 'react-router-dom'
 import PrimarySearchAppBar from './Header';
 
 import App from './App'
+import Dashboard from './pages/Dashboard';
 const routs = (
    
    < BrowserRouter >
          <PrimarySearchAppBar />
-      <div>
+      <Switch>
          <Route exact path="/" component={App} />
+         <Route exact path="/dashboard" component={Dashboard} />
 
-      </div>
+      </Switch>
    </ BrowserRouter >
 );
 ReactDOM.render(routs, document.getElementById('root'))

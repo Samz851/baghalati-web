@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import './App.css';
 import { Grid } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { Redirect } from 'react-router-dom';
 import LoginForm from './pages/login';
-import Dashboard from './pages/Dashboard';
 import Auth from './api/Auth';
 
 const useStyles = makeStyles((theme) => ({
@@ -23,20 +23,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function Content(props){
-  const { isLoggedIn, loginStyles } = props;
-    if(isLoggedIn){
-      return <Dashboard />
-    }else{
-      return(
-        <div className={loginStyles}>
-          <LoginForm></LoginForm>
-        </div>
-      )
-    }
-}
 
-function App() {
+function App( props ) {
 
   const [isLoggedIn, setIsLoggedIn] = useState(null);
   const classes = useStyles();
@@ -48,14 +36,16 @@ function App() {
         let api = new Auth();
         let response = await api.verifySID(session);
         if(response.success){
-          setIsLoggedIn(true);
+          // setIsLoggedIn(true);
+          props.history.push('/dashboard');
+
         }
       }
     }
     checkSession();
 
   },[])
-
+  const styles = useStyles();
   return (
     <Grid
       container
@@ -63,9 +53,10 @@ function App() {
       justify="center"
       alignItems="center"
 
-    >        <Grid item xs={12}>
-          <Content isLoggedIn={isLoggedIn} loginStyles={classes.login}/>
-        </Grid>
+    >
+      <div className={styles.loginStyles}>
+        <LoginForm history={props.history}></LoginForm>
+      </div>
     </Grid>
   );
 }

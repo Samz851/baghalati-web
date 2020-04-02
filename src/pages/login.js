@@ -1,5 +1,6 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { Redirect } from 'react-router-dom';
 import {Snackbar, TextField, Button} from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import Auth from '../api/Auth';
@@ -28,7 +29,8 @@ export default class LoginForm extends React.Component {
     let api = new Auth();
     let login = await api.login(data);
     if(login.success){
-      //SUCCESS
+      console.log(login);
+      this.props.history.push('/dashboard');
     }else{
       this.setState({alertMsg: login.message});
       this.setState({openAlert: true})
