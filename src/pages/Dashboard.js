@@ -1,24 +1,33 @@
 import React, { Component } from 'react';
 import { Grid, ButtonGroup, Button } from '@material-ui/core';
 import Settings from './dashboard/Settings';
+import Campaigns from './dashboard/campaigns';
 
 export default class Dashboard extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            contentIndex: 0
+            contentIndex: "Settings",
+            menue: ["Dashboard", "Campaigns", "Inventory", "Orders", "Settings"]
         }
     }
 
     handleTabClick(e){
-        let index = e.target.value;
+      // e.persist();
+        console.log(e);
+        let index = e;
+        console.log(e);
         this.setState({contentIndex: index});
+        console.log(this.state.contentIndex)
     }
 
     renderMainContent(){
-        if(this.state.contentIndex == 0){
+        if(this.state.contentIndex == "Settings"){
             return <Settings />
+        }
+        else if(this.state.contentIndex == "Campaigns"){
+          return <Campaigns />
         }
     }
   render() {
@@ -43,10 +52,9 @@ export default class Dashboard extends Component {
         size="large"
         fullWidth={true}
       >
-        <Button>Dashboard</Button>
-        <Button>Inventory</Button>
-        <Button>Orders Feed</Button>
-        <Button onClick={this.handleTabClick} value={0}>Settings</Button>
+        {this.state.menue.map((item, i) => {
+          return (<Button onClick={(e)=>{this.handleTabClick(item)}} key={i}> {item} </Button>)
+        })}
       </ButtonGroup>
       </Grid>
       <Grid item xs={10} className="jwb-admin-content">

@@ -27,3 +27,8 @@
 .jwb-dashboard-settings {
   height: 400px
 }
+
+.jwb-campains-upload-btn {
+  margin: 20px 10px;
+  display: block;
+}
