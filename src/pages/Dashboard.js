@@ -9,10 +9,18 @@ export default class Dashboard extends Component {
         super(props);
         this.state = {
             contentIndex: "Settings",
-            menue: ["Dashboard", "Campaigns", "Inventory", "Orders", "Settings"]
+            menue: ["Dashboard", "Campaigns", "Inventory", "Orders", "Settings"],
+            syncStatus: false
         }
     }
 
+    componentDidMount(){
+      let query = new URLSearchParams(this.props.location.search).get("synched");
+      if(query){
+        this.setState({syncStatus: query});
+      }
+    }
+    
     handleTabClick(e){
       // e.persist();
         console.log(e);
@@ -24,7 +32,7 @@ export default class Dashboard extends Component {
 
     renderMainContent(){
         if(this.state.contentIndex == "Settings"){
-            return <Settings />
+            return <Settings syncStatus={this.state.syncStatus}/>
         }
         else if(this.state.contentIndex == "Campaigns"){
           return <Campaigns />

@@ -4,6 +4,15 @@ const imgSrc = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAE0AAAAjCAYAAADR94
 
 export default class Settings extends Component {
 
+  constructor(props){
+    super(props)
+    this.state = {
+      is_synched: this.props.syncStatus
+    }
+  }
+  componentDidMount(){
+
+  }
 
   syncRecords(e){
     let session = localStorage.getItem('JWBSID');
@@ -20,7 +29,10 @@ export default class Settings extends Component {
         <div className="jwb-dashboard-settings-hikeup">
           <img src={imgSrc} alt="hikeup" />
           <p> HikeUp is your system of records, to sync your database with HikeUp please click the button below</p>
-          <Button variant="contained" color="primary" onClick={this.syncRecords}>Sync</Button>
+          { 
+          this.state.is_synched ? (<h4>Your Store is Connected</h4>) : (<Button variant="contained" color="primary" onClick={this.syncRecords}>Sync</Button>)
+          }
+          
         </div>
       </Paper>
     );
