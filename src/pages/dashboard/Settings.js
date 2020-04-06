@@ -11,7 +11,7 @@ export default class Settings extends Component {
     }
   }
   componentDidMount(){
-
+    console.log(this.state.is_synched);
   }
 
   syncRecords(e){
