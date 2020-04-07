@@ -11,9 +11,9 @@ export default class Settings extends Component {
     }
   }
   componentDidMount(){
-    console.log(this.state.is_synched);
-    let query = new URLSearchParams(this.props.location.search).get("synched");
-    console.log(query);
+    // console.log(this.state.is_synched);
+    // let query = new URLSearchParams(this.props.location.search).get("synched");
+    // console.log(query);
   }
 
   syncRecords(e){

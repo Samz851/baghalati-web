@@ -16,7 +16,7 @@ export default class Dashboard extends Component {
 
     componentDidMount(){
       let query = new URLSearchParams(this.props.location.search).get("synched");
-      console.log(this.props.location);
+      console.log(query);
       if(query){
         this.setState({syncStatus: query});
       }
