@@ -10,16 +10,16 @@ export default class Dashboard extends Component {
         this.state = {
             contentIndex: "Settings",
             menue: ["Dashboard", "Campaigns", "Inventory", "Orders", "Settings"],
-            syncStatus: false
+            syncStatus: new URLSearchParams(this.props.location.search).get("synched")
         }
     }
 
     componentDidMount(){
-      let query = new URLSearchParams(this.props.location.search).get("synched");
-      console.log(query);
-      if(query){
-        this.setState({syncStatus: query});
-      }
+      // let query = new URLSearchParams(this.props.location.search).get("synched");
+      // console.log(query);
+      // if(query){
+      //   this.setState({syncStatus: query});
+      // }
     }
     
     handleTabClick(e){
