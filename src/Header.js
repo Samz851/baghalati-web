@@ -4,6 +4,7 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import logo from './assets/final-logo.png';
 
+
 const useStyles = makeStyles(theme => ({
   grow: {
     flexGrow: 1,
@@ -91,10 +92,10 @@ export default function PrimarySearchAppBar() {
     <div className={classes.grow}>
       <AppBar position="static" color="transparent">
         <Toolbar>
-          <img src={ logo } className={classes.logoImg}/>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
           </div>
+          <img src={ logo } className={classes.logoImg}/>
         </Toolbar>
       </AppBar>
     </div>

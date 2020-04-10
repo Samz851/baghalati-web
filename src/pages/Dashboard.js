@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Grid, ButtonGroup, Button } from '@material-ui/core';
 import Settings from './dashboard/Settings';
 import Campaigns from './dashboard/campaigns';
+import Inventory from './dashboard/Inventory';
+import Orders from './dashboard/Orders';
 
 export default class Dashboard extends Component {
 
@@ -9,26 +11,27 @@ export default class Dashboard extends Component {
         super(props);
         this.state = {
             contentIndex: "Settings",
-            menue: ["Dashboard", "Campaigns", "Inventory", "Orders", "Settings"],
+            menue: ["Dashboard", "Campaigns", "Inventory", "Orders", "Settings", "Log Out"],
             syncStatus: new URLSearchParams(this.props.location.search).get("synched")
         }
     }
 
     componentDidMount(){
-      // let query = new URLSearchParams(this.props.location.search).get("synched");
-      // console.log(query);
-      // if(query){
-      //   this.setState({syncStatus: query});
-      // }
+      let query = new URLSearchParams(this.props.location.search).get("synched");
+      console.log(query);
+      if(query){
+        this.setState({syncStatus: query});
+      }
     }
     
     handleTabClick(e){
       // e.persist();
-        console.log(e);
         let index = e;
-        console.log(e);
+        if(e == "Log Out"){
+          localStorage.removeItem('JWBSID');
+          this.props.history.push('/');
+        }
         this.setState({contentIndex: index});
-        console.log(this.state.contentIndex)
     }
 
     renderMainContent(){
@@ -37,6 +40,12 @@ export default class Dashboard extends Component {
         }
         else if(this.state.contentIndex == "Campaigns"){
           return <Campaigns />
+        }
+        else if (this.state.contentIndex == "Inventory"){
+          return <Inventory />
+        }
+        else if (this.state.contentIndex == "Orders"){
+          return <Orders />
         }
     }
   render() {

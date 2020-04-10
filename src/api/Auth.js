@@ -8,6 +8,8 @@ export default class Auth {
     optionsURI = 'https://api.baghalati.com/api/admin/pushBanner';
     getBannersURI = 'https://api.baghalati.com/api/admin/getBanners';
     deleteBannersURI = 'https://api.baghalati.com/api/admin/deleteBanners/';
+    refreshTokenURI = 'https://api.baghalati.com/api/pos/refreshToken';
+    deliveryFeeURI = 'https://api.baghalati.com/api/admin/deliveryFee';
     // registerURI = 'http://localhost:3210/api/admin/register/';
     // loginURI = 'http://localhost:3210/api/admin/login';
     // sidURI = 'http://localhost:3210/api/admin/sid';
@@ -21,6 +23,7 @@ export default class Auth {
         let response = await request.json();
         if(response.success){
             localStorage.setItem('JWBSID', response.session);
+            localStorage.setItem('JWBSTORESTATUS', response.is_connected);
             return {success: true};
         }else{
             return {success: false, message: response.message}
@@ -67,9 +70,44 @@ export default class Auth {
     }
 
     async deleteBanners(id){
-        let request = await fetch(this.deleteBannersURI+ '?id=' + id, {method: 'GET'});
+        let request = await fetch(this.deleteBannersURI+ '?id=' + id, { method: 'GET' });
         let response = await request.json();
         return {success: response.success};
+    }
+
+    async refreshToken(id){
+        let request = await fetch(this.refreshTokenURI + '?id=' + id, { method: 'GET' });
+        let response = await request.json();
+        return {
+            success: response.success
+        }
+    }
+
+    async updateDeliveryFee(fee, id){
+        try{
+            let request = await fetch(this.deliveryFeeURI, { method: 'POST', headers: this.headers, body: JSON.stringify({fee: fee, id: id}) });
+            let response = await request.json();
+            return {
+                success: response.success,
+                option: response.result
+            }
+        }catch(error){
+            console.log(error);
+        }
+
+    }
+
+    async getDeliveryFee(){
+        try{
+            let request = await fetch(this.deliveryFeeURI, { method: 'GET' });
+            let response = await request.json();
+            return {
+                success: response.success,
+                option: response.option
+            }
+        }catch(error){
+            console.log(error);
+        }
     }
     
 }

@@ -32,3 +32,58 @@
   margin: 20px 10px;
   display: block;
 }
+
+.jwb-inventory-tabs {
+  background-color: #a5d6f4;
+}
+
+.jwb-inventory-tabs.checked {
+  background-color: #377499;
+  color: #fff
+}
+.jwb-inventory-modal{
+  z-index: 99 !important;
+  background-color: rgba(255, 255, 255, 0.85) !important;
+}
+.jwb-update-delivery-btn {
+  top: 10px;
+  left: 10px;
+}
+.jwb-card-content {
+  align-content: end;
+  text-align: left;
+}
+.jwb-card-content > div {
+  display: inline-block;
+}
+.jwb-order-status-btn {
+  border: 2px solid !important;
+}
+.jwb-order-status-btn.received {
+  color: rgb(143, 0, 0);
+}
+.jwb-order-status-btn.onroute {
+  color: rgb(177, 177, 0);
+  border-color: rgb(177, 177, 0);
+}
+.jwb-order-status-btn.delivered {
+  color: rgb(0, 88, 0);
+  border-color: rgb(0, 88, 0);
+}
+.jwb-order-status-btn.cancel {
+  background-color: rgb(143, 0, 0);
+  color: white;
+}
+.jwb-order-card.received {
+  background-color: rgba(143, 0, 0, 0.15)
+}
+.jwb-order-card.onroute {
+  background-color: rgba(177, 177, 0, 0.15)
+}
+.jwb-order-card.delivered {
+  background-color: rgba(0, 88, 0, 0.15);
+}
+.jwb-card-content-actions {
+  float: right;
+  font-weight: 900;
+}
