@@ -81,8 +81,8 @@ export default class InventoryPOS extends Component {
         <Table aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell>SKU</TableCell>
-              <TableCell>Name</TableCell>
+              <TableCell align="center">SKU</TableCell>
+              <TableCell align="center">Name</TableCell>
               <TableCell align="center">Brand</TableCell>
               <TableCell align="center">Price</TableCell>
               <TableCell align="center">Stock</TableCell>

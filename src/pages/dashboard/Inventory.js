@@ -13,7 +13,7 @@ export default class Inventory extends Component {
     constructor(props){
         super(props)
         this.state = {
-            tabIndex : 0
+            tabIndex : 1
         }
 
         this.handleTabsChange = this.handleTabsChange.bind(this);

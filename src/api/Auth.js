@@ -2,14 +2,14 @@ export default class Auth {
     
     constructor(){
     }
-    registerURI = 'https://api.baghalati.com/api/admin/register/';
-    loginURI = 'https://api.baghalati.com/api/admin/login';
-    sidURI = 'https://api.baghalati.com/api/admin/sid';
-    optionsURI = 'https://api.baghalati.com/api/admin/pushBanner';
-    getBannersURI = 'https://api.baghalati.com/api/admin/getBanners';
-    deleteBannersURI = 'https://api.baghalati.com/api/admin/deleteBanners/';
-    refreshTokenURI = 'https://api.baghalati.com/api/pos/refreshToken';
-    deliveryFeeURI = 'https://api.baghalati.com/api/admin/deliveryFee';
+    registerURI = 'https://api.jubnawebaith.com/v1/admin/register/';
+    loginURI = 'https://api.jubnawebaith.com/v1/admin/login';
+    sidURI = 'https://api.jubnawebaith.com/v1/admin/sid';
+    optionsURI = 'https://api.jubnawebaith.com/v1/admin/pushBanner';
+    getBannersURI = 'https://api.jubnawebaith.com/v1/admin/getBanners';
+    deleteBannersURI = 'https://api.jubnawebaith.com/v1/admin/deleteBanners/';
+    refreshTokenURI = 'https://api.jubnawebaith.com/v1/pos/refreshToken';
+    deliveryFeeURI = 'https://api.jubnawebaith.com/v1/admin/deliveryFee';
     // registerURI = 'http://localhost:3210/api/admin/register/';
     // loginURI = 'http://localhost:3210/api/admin/login';
     // sidURI = 'http://localhost:3210/api/admin/sid';

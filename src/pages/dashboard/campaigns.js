@@ -137,7 +137,7 @@ export default class Campaigns extends Component {
                                                 { banner.createdAt }
                                             </TableCell>
                                             <TableCell component="td" scope="row" align="center">
-                                                <img src={'https://api.baghalati.com/' + banner.option_value.path.replace('server/', '')} alt={banner.option_value.name} style={{maxWidth: 100}}/>
+                                                <img src={'https://api.jubnawebaith.com/' + banner.option_value.path.replace('server/', '')} alt={banner.option_value.name} style={{maxWidth: 100}}/>
                                             </TableCell>
                                             <TableCell component="td" align="center">
                                                 <IconButton aria-label="delete" onClick={(e) => this.deleteBanner(index, banner._id)}>
