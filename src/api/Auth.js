@@ -10,10 +10,23 @@ export default class Auth {
     deleteBannersURI = 'https://api.jubnawebaith.com/v1/admin/deleteBanners/';
     refreshTokenURI = 'https://api.jubnawebaith.com/v1/pos/refreshToken';
     deliveryFeeURI = 'https://api.jubnawebaith.com/v1/admin/deliveryFee';
-    // registerURI = 'http://localhost:3210/api/admin/register/';
-    // loginURI = 'http://localhost:3210/api/admin/login';
-    // sidURI = 'http://localhost:3210/api/admin/sid';
-    // optionsURI = 'http://localhost:3210/api/admin/pushBanner';
+    getUsersURI = 'https://api.jubnawebaith.com/v1/admin/getUsers';
+    getUsersURI = 'https://api.jubnawebaith.com/v1/admin/getUsers';
+
+
+    // DEV ENV
+    // registerURI = 'http://localhost:3200/v1/admin/register/';
+    // loginURI = 'http://localhost:3200/v1/admin/login';
+    // sidURI = 'http://localhost:3200/v1/admin/sid';
+    // optionsURI = 'http://localhost:3200/v1/admin/pushBanner';
+    // getBannersURI = 'http://localhost:3200/v1/admin/getBanners';
+    // deleteBannersURI = 'http://localhost:3200/v1/admin/deleteBanners/';
+    // refreshTokenURI = 'http://localhost:3200/v1/pos/refreshToken';
+    // deliveryFeeURI = 'http://localhost:3200/v1/admin/deliveryFee';
+    // getUsersURI = 'http://localhost:3200/v1/admin/getUsers';
+    // deleteUsersURI = 'http://localhost:3200/v1/admin/deleteUser';
+
+    
     headers = {
         'content-type': 'application/json'
       }
@@ -105,6 +118,39 @@ export default class Auth {
                 success: response.success,
                 option: response.option
             }
+        }catch(error){
+            console.log(error);
+        }
+    }
+
+    async register(user){
+        user.secret = 'Freaky';
+        try{
+            let request = await fetch(this.registerURI, { method: 'POST', headers: this.headers, body: JSON.stringify(user)});
+            let response = await request.json();
+            return response
+        }catch(error){
+            console.log(error);
+        }
+    }
+
+    async getUsers(){
+        try{
+            let request = await fetch(this.getUsersURI, { method: 'GET'});
+            let response = await request.json();
+            console.log(response);
+            return response
+        }catch(error){
+            console.log(error);
+        }
+    }
+
+    async deleteUser(id){
+        let secret = 'Freaky';
+        try{
+            let request = await fetch(this.deleteUsersURI, { method: 'POST', headers: this.headers, body: JSON.stringify({userID: id, secret: secret})});
+            let response = await request.json();
+            return response
         }catch(error){
             console.log(error);
         }

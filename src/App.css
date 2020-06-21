@@ -97,3 +97,16 @@
   padding: 15px 25px;
   margin-top: 15px;
 }
+.jwb-product-card {
+  padding: 15px 25px;
+}
+.jwb-product-avatar {
+  width: 100px !important;
+  height: 100px !important;
+}
+.jwb-dashboard-admin-registration, .jwb-dashboard-driver-registration {
+  max-width: 800px;
+  text-align: center;
+  margin: 15px auto;
+  padding: 15px;
+}

@@ -4,6 +4,7 @@ import Settings from './dashboard/Settings';
 import Campaigns from './dashboard/campaigns';
 import Inventory from './dashboard/Inventory';
 import Orders from './dashboard/Orders';
+import Users from './dashboard/Users';
 
 export default class Dashboard extends Component {
 
@@ -11,7 +12,7 @@ export default class Dashboard extends Component {
         super(props);
         this.state = {
             contentIndex: "Settings",
-            menue: ["Dashboard", "Campaigns", "Inventory", "Orders", "Settings", "Log Out"],
+            menue: ["Dashboard", "Campaigns", "Inventory", "Orders", "Users", "Settings", "Log Out"],
             syncStatus: new URLSearchParams(this.props.location.search).get("synched")
         }
     }
@@ -46,6 +47,9 @@ export default class Dashboard extends Component {
         }
         else if (this.state.contentIndex == "Orders"){
           return <Orders />
+        }
+        else if (this.state.contentIndex == "Users"){
+          return <Users />
         }
     }
   render() {

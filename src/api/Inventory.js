@@ -6,6 +6,16 @@ export default class Inventory {
         this.fetchDBProductsURI = 'https://api.jubnawebaith.com/v1/products/';
         this.fetchActiveOrdersURI = 'https://api.jubnawebaith.com/v1/orders/activeOrders';
         this.updateOrderStatusURI = 'https://api.jubnawebaith.com/v1/orders/updateOrderStatus';
+        this.updateProductInfoURI = 'https://api.jubnawebaith.com/v1/products/editProduct';
+
+        // DEV ENV
+        // this.fetchPOSProductsURI = 'http://localhost:3200/v1/pos/getProducts';
+        // this.syncPOSProductsURI = 'http://localhost:3200/v1/pos/syncPOS';
+        // this.fetchDBProductsURI = 'http://localhost:3200/v1/products/';
+        // this.fetchActiveOrdersURI = 'http://localhost:3200/v1/orders/activeOrders';
+        // this.updateOrderStatusURI = 'http://localhost:3200/v1/orders/updateOrderStatus';
+        // this.updateProductInfoURI = 'http://localhost:3200/v1/products/editProduct';
+        // // this.getProductByID = 'http://localhost:3200/v1/products/'
         this.headers = {
             'content-type': 'application/json'
           }
@@ -14,6 +24,12 @@ export default class Inventory {
 
     async fetchPOSProducts(page, id){
         let request = await fetch(this.fetchPOSProductsURI + '?page=' + page + '&id=' + id, { method: 'GET' });
+        let response = await request.json();
+        return response;
+    }
+
+    async fetchSingleProduct(id){
+        let request = await fetch(this.fetchDBProductsURI + id, { method: 'GET' });
         let response = await request.json();
         return response;
     }
@@ -27,7 +43,7 @@ export default class Inventory {
 
     async fetchDBProducts(page, id){
         let offset = page == 0 ? 0 : 20 * page;
-        let request = await fetch(this.fetchDBProductsURI + '?page=' + page + '&offset=' + offset, { method: 'GET' });
+        let request = await fetch(this.fetchDBProductsURI + '?page=' + page + '&offset=' + offset +'&cat=all', { method: 'GET' });
         let response = await request.json();
         return response;
     }
@@ -42,5 +58,13 @@ export default class Inventory {
         let request = await fetch(this.updateOrderStatusURI, { method: 'POST', headers: this.headers, body: JSON.stringify({id: id, status: status}) });
         // let response = await request.json();
         // return response;
+    }
+
+    async updateProductInfo(product){
+        product.SID = localStorage.getItem('JWBSID');
+        console.log(product);
+        let update = await fetch(this.updateProductInfoURI, {method: 'POST', body: product});
+        update = await update.json();
+        console.log(update);
     }
 }

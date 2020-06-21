@@ -4,11 +4,13 @@ import {
   TableCell, TableContainer,
   TableHead, TableRow,
   Paper, CircularProgress,
-  Backdrop
+  Backdrop, Link
 } from '@material-ui/core';
 import Pagination from '@material-ui/lab/Pagination';
 import Inventory from '../../api/Inventory';
 import Auth from '../../api/Auth';
+import EditProduct from '../../components/editProduct.component';
+
 export default class InventoryLocal extends Component {
   constructor(props){
     super(props)
@@ -16,7 +18,10 @@ export default class InventoryLocal extends Component {
       page : 0,
       items: [],
       inProgress: true,
-      id: ''
+      id: '',
+      editing: false,
+      productID: '',
+      api: new Inventory()
     }
     this.handlePageChange = this.handlePageChange.bind(this)
   }
@@ -24,7 +29,7 @@ export default class InventoryLocal extends Component {
   async componentDidMount(){
     const id = localStorage.getItem('JWBSID');
     this.setState({id: id});
-    let api = new Inventory();
+    let api = this.state.api;
     try{
       let products = await api.fetchDBProducts(this.state.page, id);
       console.log(products)
@@ -47,16 +52,31 @@ export default class InventoryLocal extends Component {
 
   }
 
+  editProduct(id){
+    this.setState({inProgress: true, editing: true, productID: id});
+  }
+
   closeModal(){
-    this.setState({inProgress: false})
+    this.setState({inProgress: false, editing: false});
   }
 
   render() {
     return (
       <div> 
-        <Backdrop className="jwb-inventory-modal" open={this.state.inProgress} onClick={this.closeModal}>
-          <CircularProgress color="inherit" />
-          <h5> Loading Inventory</h5>
+        <Backdrop className="jwb-inventory-modal" open={this.state.inProgress}>
+          {!this.state.editing &&
+                  <div>
+                    <CircularProgress color="inherit" />
+                    <h5> Loading Inventory</h5>
+                  </div>
+          }
+
+          {this.state.editing &&
+
+          <EditProduct productID={this.state.productID} inventory={this.state.api} close={this.closeModal.bind(this)}/>
+
+          }
+
         </Backdrop>
         {!this.state.inProgress &&
         <TableContainer component={Paper}>
@@ -68,6 +88,7 @@ export default class InventoryLocal extends Component {
                 <TableCell align="center">Brand</TableCell>
                 <TableCell align="center">Price</TableCell>
                 <TableCell align="center">Stock</TableCell>
+                <TableCell align="center">Actions</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -80,6 +101,11 @@ export default class InventoryLocal extends Component {
                   <TableCell align="center">{item.bran_name}</TableCell>
                   <TableCell align="center">{item.price.price_ex_tax.$numberDecimal}</TableCell>
                   <TableCell align="center">0</TableCell>
+                  <TableCell align="center">
+                    <Link href="#" onClick={()=>{this.editProduct(item._id)}}>
+                      Edit
+                    </Link>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
