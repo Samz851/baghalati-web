@@ -18,10 +18,15 @@ export default class Dashboard extends Component {
     }
 
     componentDidMount(){
+      if(localStorage.getItem('JWBUSERTYPE') == 'driver'){
+        this.setState({menu: ["Orders"], contentIndex: "Orders"});
+      }
       let query = new URLSearchParams(this.props.location.search).get("synched");
       console.log(query);
       if(query){
         this.setState({syncStatus: query});
+      }else{
+        this.setState({syncStatus: localStorage.getItem('JWBSTORESTATUS')});
       }
     }
     

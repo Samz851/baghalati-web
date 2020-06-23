@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Paper, Button, 
         TextField, Checkbox,
-        Snackbar } from '@material-ui/core';
+        Snackbar, ButtonGroup } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import Auth from '../../api/Auth';
 import Inventory from '../../api/Inventory';
@@ -39,6 +39,40 @@ export default class Settings extends Component {
     // console.log(dFee);
     this.setState({deliveryID: dFee.option._id})
     this.setState({deliveryFee: dFee.option.option_value})
+  }
+
+  async fetchNewProducts(){
+    let api = new Inventory();
+    let fetch = await api.getDeliveryFee();
+    if(fetch.success){
+      await this.setState({
+        alertStatus: 'success',
+        alertMsg: fetch.message
+      })
+    }else{
+      await this.setState({
+        alertStatus: 'error',
+        alertMsg: 'Failed to fetch new products!'
+      })
+    }
+    this.setState({openAlert: true});
+  }
+
+  async updateLocalInventory(){
+    let api = new Inventory();
+    let fetch = await api.updateLocalInventory();
+    if(fetch.success){
+      await this.setState({
+        alertStatus: 'success',
+        alertMsg: fetch.message
+      })
+    }else{
+      await this.setState({
+        alertStatus: 'error',
+        alertMsg: 'Failed to fetch new products!'
+      })
+    }
+    this.setState({openAlert: true});
   }
 
   connectStore(e){
@@ -81,7 +115,7 @@ export default class Settings extends Component {
   }
 
   renderSyncContent(){
-    if(this.state.is_synched){
+    if(this.props.syncStatus){
       return (
       <div>
         <h4>Your Store is Connected <small>You can start syncing your products now</small></h4>
@@ -96,7 +130,11 @@ export default class Settings extends Component {
             <TextField id="password" label="Password" type="password" onChange={this.onPassChangeHandler} style={{maxWidth: 400, display: 'block', textAlign: 'center', margin: 'auto', marginBottom: 20}}/>
           }
         </div>
-        <Button variant="contained" color="primary" onClick={this.syncRecords}>Sync</Button>
+        <div className="jwb-settings-sync-btn"><Button variant="contained" color="primary" onClick={this.syncRecords} className="JWB-settings-btn">Sync</Button></div>
+        <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
+          <Button onClick={this.fetchNewProducts}>Fetch new products</Button>
+          <Button onClick={this.updateLocalInventory}>Update local inventory</Button>
+        </ButtonGroup>
       </div>
       )
     }else{
