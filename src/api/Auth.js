@@ -3,8 +3,8 @@ export default class Auth {
     constructor(){
     }
     registerURI = 'https://api.jubnawebaith.com/v1/admin/register/';
-    // loginURI = 'https://api.jubnawebaith.com/v1/admin/login';
-    // sidURI = 'https://api.jubnawebaith.com/v1/admin/sid';
+    loginURI = 'https://api.jubnawebaith.com/v1/admin/login';
+    sidURI = 'https://api.jubnawebaith.com/v1/admin/sid';
     optionsURI = 'https://api.jubnawebaith.com/v1/admin/pushBanner';
     getBannersURI = 'https://api.jubnawebaith.com/v1/admin/getBanners';
     deleteBannersURI = 'https://api.jubnawebaith.com/v1/admin/deleteBanners/';
@@ -16,8 +16,8 @@ export default class Auth {
 
     // DEV ENV
     // registerURI = 'http://localhost:3200/v1/admin/register/';
-    loginURI = 'http://localhost:3200/v1/admin/login';
-    sidURI = 'http://localhost:3200/v1/admin/sid';
+    // loginURI = 'http://localhost:3200/v1/admin/login';
+    // sidURI = 'http://localhost:3200/v1/admin/sid';
     // optionsURI = 'http://localhost:3200/v1/admin/pushBanner';
     // getBannersURI = 'http://localhost:3200/v1/admin/getBanners';
     // deleteBannersURI = 'http://localhost:3200/v1/admin/deleteBanners/';
