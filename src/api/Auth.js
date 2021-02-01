@@ -2,29 +2,29 @@ export default class Auth {
     
     constructor(){
     }
-    // registerURI = 'https://api.jubnawebaith.com/v1/admin/register/';
-    // loginURI = 'https://api.jubnawebaith.com/v1/admin/login';
-    // sidURI = 'https://api.jubnawebaith.com/v1/admin/sid';
-    // optionsURI = 'https://api.jubnawebaith.com/v1/admin/pushBanner';
-    // getBannersURI = 'https://api.jubnawebaith.com/v1/admin/getBanners';
-    // deleteBannersURI = 'https://api.jubnawebaith.com/v1/admin/deleteBanners/';
-    // refreshTokenURI = 'https://api.jubnawebaith.com/v1/pos/refreshToken';
-    // deliveryFeeURI = 'https://api.jubnawebaith.com/v1/admin/deliveryFee';
-    // getUsersURI = 'https://api.jubnawebaith.com/v1/admin/getUsers';
-    // deleteUsersURI = 'https://api.jubnawebaith.com/v1/admin/deleteUser';
+    registerURI = 'https://api.jubnawebaith.com/v1/admin/register/';
+    loginURI = 'https://api.jubnawebaith.com/v1/admin/login';
+    sidURI = 'https://api.jubnawebaith.com/v1/admin/sid';
+    optionsURI = 'https://api.jubnawebaith.com/v1/admin/pushBanner';
+    getBannersURI = 'https://api.jubnawebaith.com/v1/admin/getBanners';
+    deleteBannersURI = 'https://api.jubnawebaith.com/v1/admin/deleteBanners/';
+    refreshTokenURI = 'https://api.jubnawebaith.com/v1/pos/refreshToken';
+    deliveryFeeURI = 'https://api.jubnawebaith.com/v1/admin/deliveryFee';
+    getUsersURI = 'https://api.jubnawebaith.com/v1/admin/getUsers';
+    deleteUsersURI = 'https://api.jubnawebaith.com/v1/admin/deleteUser';
 
 
     // DEV ENV
-    registerURI = 'http://localhost:3200/v1/admin/register/';
-    loginURI = 'http://localhost:3200/v1/admin/login';
-    sidURI = 'http://localhost:3200/v1/admin/sid';
-    optionsURI = 'http://localhost:3200/v1/admin/pushBanner';
-    getBannersURI = 'http://localhost:3200/v1/admin/getBanners';
-    deleteBannersURI = 'http://localhost:3200/v1/admin/deleteBanners/';
-    refreshTokenURI = 'http://localhost:3200/v1/pos/refreshToken';
-    deliveryFeeURI = 'http://localhost:3200/v1/admin/deliveryFee';
-    getUsersURI = 'http://localhost:3200/v1/admin/getUsers';
-    deleteUsersURI = 'http://localhost:3200/v1/admin/deleteUser';
+    // registerURI = 'http://localhost:3200/v1/admin/register/';
+    // loginURI = 'http://localhost:3200/v1/admin/login';
+    // sidURI = 'http://localhost:3200/v1/admin/sid';
+    // optionsURI = 'http://localhost:3200/v1/admin/pushBanner';
+    // getBannersURI = 'http://localhost:3200/v1/admin/getBanners';
+    // deleteBannersURI = 'http://localhost:3200/v1/admin/deleteBanners/';
+    // refreshTokenURI = 'http://localhost:3200/v1/pos/refreshToken';
+    // deliveryFeeURI = 'http://localhost:3200/v1/admin/deliveryFee';
+    // getUsersURI = 'http://localhost:3200/v1/admin/getUsers';
+    // deleteUsersURI = 'http://localhost:3200/v1/admin/deleteUser';
 
     
     headers = {
