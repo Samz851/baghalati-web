@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Paper, Button, 
         TextField, Checkbox,
-        Snackbar, ButtonGroup } from '@material-ui/core';
+        Snackbar, ButtonGroup, 
+        CircularProgress, Backdrop } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import Auth from '../../api/Auth';
 import Inventory from '../../api/Inventory';
@@ -22,7 +23,9 @@ export default class Settings extends Component {
       password: '',
       openAlert: false,
       alertStatus: 'error',
-      alertMsg: ''
+      alertMsg: '',
+      file: '',
+      autoHide: null
     }
     this.handleDeliveryChange = this.handleDeliveryChange.bind(this);
     this.updateDelivery = this.updateDelivery.bind(this);
@@ -43,16 +46,18 @@ export default class Settings extends Component {
 
   async fetchNewProducts(){
     let api = new Inventory();
-    let fetch = await api.getDeliveryFee();
+    let fetch = await api.fetchNewProducts();
     if(fetch.success){
       await this.setState({
         alertStatus: 'success',
-        alertMsg: fetch.message
+        alertMsg: fetch.message,
+        autoHide: 6000
       })
     }else{
       await this.setState({
         alertStatus: 'error',
-        alertMsg: 'Failed to fetch new products!'
+        alertMsg: 'Failed to fetch new products!',
+        autoHide: 6000
       })
     }
     this.setState({openAlert: true});
@@ -64,12 +69,14 @@ export default class Settings extends Component {
     if(fetch.success){
       await this.setState({
         alertStatus: 'success',
-        alertMsg: fetch.message
+        alertMsg: fetch.message,
+        autoHide: 6000
       })
     }else{
       await this.setState({
         alertStatus: 'error',
-        alertMsg: 'Failed to fetch new products!'
+        alertMsg: 'Failed to fetch new products!',
+        autoHide: 6000
       })
     }
     this.setState({openAlert: true});
@@ -85,6 +92,7 @@ export default class Settings extends Component {
     //Show alert
     this.setState({
       openAlert: true,
+      autoHide: null,
       alertStatus: 'info',
       alertMsg: 'Processing Request...'
     })
@@ -95,12 +103,14 @@ export default class Settings extends Component {
     if(syncReq.success){
       this.setState({
         alertStatus: 'success',
-        alertMsg: 'Sync Completed Successfully!'
+        alertMsg: 'Sync Completed Successfully!',
+        autoHide: 6000
       })
     }else{
       this.setState({
         alertStatus: 'error',
-        alertMsg: 'Failed to Sync Products!'
+        alertMsg: 'Failed to Sync Products!',
+        autoHide: 6000
       })
     }
     console.log(`Session is: ${session} and Override is: ${this.state.override}`);
@@ -130,9 +140,10 @@ export default class Settings extends Component {
             <TextField id="password" label="Password" type="password" onChange={this.onPassChangeHandler} style={{maxWidth: 400, display: 'block', textAlign: 'center', margin: 'auto', marginBottom: 20}}/>
           }
         </div>
-        <div className="jwb-settings-sync-btn"><Button variant="contained" color="primary" onClick={this.syncRecords} className="JWB-settings-btn">Sync</Button></div>
+        <div className="jwb-settings-sync-btn">
+          <Button variant="contained" color="primary" onClick={this.syncRecords} className="JWB-settings-btn">Sync</Button></div>
         <ButtonGroup variant="contained" color="primary" aria-label="contained primary button group">
-          <Button onClick={this.fetchNewProducts}>Fetch new products</Button>
+          <Button onClick={()=> this.fetchNewProducts()}>Fetch new products</Button>
           <Button onClick={this.updateLocalInventory}>Update local inventory</Button>
         </ButtonGroup>
       </div>
@@ -144,6 +155,54 @@ export default class Settings extends Component {
           <Button variant="contained" color="primary" onClick={this.connectStore}>Connect Store</Button>
         </div>
       )
+    }
+  }
+
+  handleFileUpload(e){
+    this.setState({
+      file: e.target.files[0]
+    });
+  }
+
+  async uploadFile(){
+    if(this.state.password !== ''){
+      this.setState({
+        openAlert: true,
+        autoHide: null,
+        alertStatus: 'info',
+        alertMsg: 'Processing Request...'
+      })
+      let data = new FormData();
+      data.append('file', this.state.file);
+      // for (const key in finalProduct) {
+      //     console.log(key);
+      //     console.log(finalProduct[key]);
+      //     data.append(key, finalProduct[key]);
+      // }
+      let inventory = new Inventory();
+      let upload = await inventory.uploadFileImport(data, this.state.password);
+      console.log(upload);
+      if(upload.success){
+        this.setState({
+          alertStatus: 'success',
+          alertMsg: 'File Imported Successfully!',
+          autoHide: 6000,
+          // file: ''
+        });
+        // this.refs.fileInput = '';
+      }else{
+        this.setState({
+          alertStatus: 'error',
+          alertMsg: 'Failed to Import File!',
+          autoHide: 6000
+        })
+      }
+    }else{
+      this.setState({
+        alertStatus: 'error',
+        alertMsg: 'Password Required',
+        autoHide: 6000
+      })
     }
   }
 
@@ -163,7 +222,7 @@ export default class Settings extends Component {
   render() {
     return (
       <Paper elevation={1} className="jwb-dashboard-settings" >
-        <Snackbar open={this.state.openAlert} autoHideDuration={6000} onClose={this.handleCloseAlert}>
+        <Snackbar open={this.state.openAlert} autoHideDuration={this.state.autoHide} onClose={this.handleCloseAlert}>
           <Alert severity={this.state.alertStatus}>
               { this.state.alertMsg }
           </Alert>
@@ -194,6 +253,17 @@ export default class Settings extends Component {
               onChange={this.handleDeliveryChange}
             />
             <Button variant="contained" color="primary" onClick={this.updateDelivery} className="jwb-update-delivery-btn">Update Fee</Button>
+          </div>
+        </div>
+        <div className="jwb-dashboard-settings-delivery">
+          <h5>Import Inventory</h5>
+          <div> 
+            <p>Upload XLS file</p> 
+            <input accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" ref="fileInput" className='' id="inventory-file" type="file" onChange={(e)=> this.handleFileUpload(e)}/>
+
+            <Button variant="contained" color="primary" onClick={()=> this.uploadFile()} className="jwb-update-delivery-btn">Upload File</Button>
+            <TextField id="password" label="Password" type="password" onChange={this.onPassChangeHandler} style={{maxWidth: 400, display: 'block', textAlign: 'center', margin: 'auto', marginBottom: 20}}/>
+            <p>This will <span style={{color: 'red'}}> override </span>the database. Password required!</p>
           </div>
         </div>
           

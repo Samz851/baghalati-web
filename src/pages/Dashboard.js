@@ -5,6 +5,8 @@ import Campaigns from './dashboard/campaigns';
 import Inventory from './dashboard/Inventory';
 import Orders from './dashboard/Orders';
 import Users from './dashboard/Users';
+import Auth from '../api/Auth';
+
 
 export default class Dashboard extends Component {
 
@@ -17,7 +19,17 @@ export default class Dashboard extends Component {
         }
     }
 
-    componentDidMount(){
+    async componentDidMount(){
+      let session = await localStorage.getItem('JWBSID');
+      if(session){
+        let api = new Auth();
+        let response = await api.verifySID(session);
+        if(!response.success){
+          // setIsLoggedIn(true);
+          this.props.history.push('/');
+
+        }
+      }
       if(localStorage.getItem('JWBUSERTYPE') == 'driver'){
         this.setState({menu: ["Orders"], contentIndex: "Orders"});
       }

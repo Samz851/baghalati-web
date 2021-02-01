@@ -90,7 +90,7 @@ export default class EditProduct extends Component {
           <IconButton color="primary" aria-label="upload picture" component="span" onClick={this.props.close}>
             <CloseIcon/>
           </IconButton>
-            <h3>{this.state.product.name + ' ' + this.state.product.bran_name}</h3>
+            <h3>{this.state.product.name + ' ' + this.state.product.brand_name}</h3>
             <CardContent>
                 <img src={this.state.product_img} width={120} height={120}/>
                 <div>
@@ -104,9 +104,9 @@ export default class EditProduct extends Component {
                     </label>
                 </div>
                 <form noValidate autoComplete="off">
-                    <div><Input id="filled-basic" label="Name" variant="filled" placeholder={ this.state.product.name} onChange={(e)=>{this.handleInputChange('name',e.target.value)}} /></div>
-                    <div><Input id="filled-basic" label="Arabic Name" variant="filled" placeholder={ this.state.product.name_ar} onChange={(e)=>{this.handleInputChange('name_ar',e.target.value)}} /></div>
-                    <div><Input id="filled-basic" label="Description" variant="filled" placeholder={ this.state.product.description} onChange={(e)=>{this.handleInputChange('description',e.target.value)}} /></div>
+                    <div><label>Name (Arabic): </label><Input id="filled-basic" label="Name" variant="filled" placeholder={ this.state.product.name} onChange={(e)=>{this.handleInputChange('name',e.target.value)}} /></div>
+                    <div><label>Name: </label><Input id="filled-basic" label="Arabic Name" variant="filled" placeholder={ this.state.product.name_eng} onChange={(e)=>{this.handleInputChange('name_eng',e.target.value)}} /></div>
+                    <div><label>Description: </label><Input id="filled-basic" label="Description" variant="filled" placeholder={ this.state.product.description} onChange={(e)=>{this.handleInputChange('description',e.target.value)}} /></div>
                     
                 </form>
             </CardContent>

@@ -1,25 +1,28 @@
 export default class Inventory {
 
     constructor(){
-        this.fetchPOSProductsURI = 'https://api.jubnawebaith.com/v1/pos/getProducts';
-        this.syncPOSProductsURI = 'https://api.jubnawebaith.com/v1/pos/syncPOS';
-        this.fetchNewProductsURI = 'http://api.jubnawebaith.com/v1/pos/fetchNewProducts/';
-        this.updateLocalInventoryURI = 'https://api.jubnawebaith.com/v1/pos/updateLocalProducts/';
-        this.fetchDBProductsURI = 'https://api.jubnawebaith.com/v1/products/';
-        this.fetchActiveOrdersURI = 'https://api.jubnawebaith.com/v1/orders/activeOrders';
-        this.updateOrderStatusURI = 'https://api.jubnawebaith.com/v1/orders/updateOrderStatus';
-        this.updateProductInfoURI = 'https://api.jubnawebaith.com/v1/products/editProduct';
+        // this.fetchPOSProductsURI = 'https://api.jubnawebaith.com/v1/pos/getProducts';
+        // this.syncPOSProductsURI = 'https://api.jubnawebaith.com/v1/pos/syncPOS';
+        // this.fetchDBProductsURI = 'https://api.jubnawebaith.com/v1/products/';
+        // this.fetchActiveOrdersURI = 'https://api.jubnawebaith.com/v1/orders/activeOrders';
+        // this.updateOrderStatusURI = 'https://api.jubnawebaith.com/v1/orders/updateOrderStatus';
+        // this.updateProductInfoURI = 'https://api.jubnawebaith.com/v1/products/editProduct';
+        // this.getProductByID = 'http://api.jubnawebaith.com/v1/products/';
+        // this.fetchNewProductsURI = 'http://api.jubnawebaith.com/v1/pos/fetchNewProducts/';
+        // this.updateLocalInventoryURI = 'https://api.jubnawebaith.com/v1/pos/updateLocalProducts/';
+        // this.uploadFileImportURI = 'https://api.jubnawebaith.com/v1/products/importProducts';
 
         // DEV ENV
-        // this.fetchPOSProductsURI = 'http://localhost:3200/v1/pos/getProducts';
-        // this.syncPOSProductsURI = 'http://localhost:3200/v1/pos/syncPOS';
-        // this.fetchDBProductsURI = 'http://localhost:3200/v1/products/';
-        // this.fetchActiveOrdersURI = 'http://localhost:3200/v1/orders/activeOrders';
-        // this.updateOrderStatusURI = 'http://localhost:3200/v1/orders/updateOrderStatus';
-        // this.updateProductInfoURI = 'http://localhost:3200/v1/products/editProduct';
-        // this.getProductByID = 'http://localhost:3200/v1/products/'
-        // this.fetchNewProductsURI = 'http://localhost:3200/v1/pos/fetchNewProducts/'
-        // this.updateLocalInventoryURI = 'http://localhost:3200/v1/pos/updateLocalProducts/';
+        this.fetchPOSProductsURI = 'http://localhost:3200/v1/pos/getProducts';
+        this.syncPOSProductsURI = 'http://localhost:3200/v1/pos/syncPOS';
+        this.fetchDBProductsURI = 'http://localhost:3200/v1/products/';
+        this.fetchActiveOrdersURI = 'http://localhost:3200/v1/orders/activeOrders';
+        this.updateOrderStatusURI = 'http://localhost:3200/v1/orders/updateOrderStatus';
+        this.updateProductInfoURI = 'http://localhost:3200/v1/products/editProduct';
+        this.getProductByID = 'http://localhost:3200/v1/products/'
+        this.fetchNewProductsURI = 'http://localhost:3200/v1/pos/fetchNewProducts/'
+        this.updateLocalInventoryURI = 'http://localhost:3200/v1/pos/updateLocalProducts/';
+        this.uploadFileImportURI = 'http://localhost:3200/v1/products/importProducts';
 
         this.headers = {
             'content-type': 'application/json'
@@ -85,5 +88,12 @@ export default class Inventory {
         let update = await fetch(this.updateLocalInventoryURI + SID, {method: 'GET'});
         update = await update.json();
         return update;
+    }
+
+    async uploadFileImport(file, pass){
+        file.SID = localStorage.getItem('JWBSID');
+        let upload = await fetch(this.uploadFileImportURI, {method: 'POST', body: file});
+        upload = await upload.json();
+        return upload;
     }
 }
