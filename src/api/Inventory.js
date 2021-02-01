@@ -7,8 +7,8 @@ export default class Inventory {
         this.fetchActiveOrdersURI = 'https://api.jubnawebaith.com/v1/orders/activeOrders';
         this.updateOrderStatusURI = 'https://api.jubnawebaith.com/v1/orders/updateOrderStatus';
         this.updateProductInfoURI = 'https://api.jubnawebaith.com/v1/products/editProduct';
-        this.getProductByID = 'http://api.jubnawebaith.com/v1/products/';
-        this.fetchNewProductsURI = 'http://api.jubnawebaith.com/v1/pos/fetchNewProducts/';
+        this.getProductByID = 'https://api.jubnawebaith.com/v1/products/';
+        this.fetchNewProductsURI = 'https://api.jubnawebaith.com/v1/pos/fetchNewProducts/';
         this.updateLocalInventoryURI = 'https://api.jubnawebaith.com/v1/pos/updateLocalProducts/';
         this.uploadFileImportURI = 'https://api.jubnawebaith.com/v1/products/importProducts';
 
