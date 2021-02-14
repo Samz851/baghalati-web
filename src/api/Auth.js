@@ -12,6 +12,8 @@ export default class Auth {
     deliveryFeeURI = 'https://api.jubnawebaith.com/v1/admin/deliveryFee';
     getUsersURI = 'https://api.jubnawebaith.com/v1/admin/getUsers';
     deleteUsersURI = 'https://api.jubnawebaith.com/v1/admin/deleteUser';
+    fetchCouponsURI = 'https://api.jubnawebaith.com/v1/admin/getCoupons';
+    couponURI = 'https://api.jubnawebaith.com/v1/admin/coupons';
 
 
     // DEV ENV
@@ -25,6 +27,8 @@ export default class Auth {
     // deliveryFeeURI = 'http://localhost:3200/v1/admin/deliveryFee';
     // getUsersURI = 'http://localhost:3200/v1/admin/getUsers';
     // deleteUsersURI = 'http://localhost:3200/v1/admin/deleteUser';
+    // fetchCouponsURI = 'http://localhost:3200/v1/admin/getCoupons';
+    // couponURI = 'http://localhost:3200/v1/admin/coupons';
 
     
     headers = {
@@ -153,6 +157,41 @@ export default class Auth {
             let request = await fetch(this.deleteUsersURI, { method: 'POST', headers: this.headers, body: JSON.stringify({userID: id, secret: secret})});
             let response = await request.json();
             return response
+        }catch(error){
+            console.log(error);
+        }
+    }
+
+    async fetchCoupons(){
+        console.log('Fetching coupons');
+        let SID = localStorage.getItem('JWBSID');
+        try{
+            let request = await fetch(this.couponURI + `/${SID}`, { method: 'GET', headers: this.headers});
+            let response = await request.json();
+            return response;
+        }catch(error){
+            console.log(error);
+        }
+    }
+
+    async createCoupon(coupon){
+        let SID = localStorage.getItem('JWBSID');
+        coupon.SID = SID;
+        try{
+            let request = await fetch(this.couponURI , { method: 'POST', headers: this.headers, body: JSON.stringify(coupon)});
+            let response = await request.json();
+            return response;
+        }catch(error){
+            console.log(error);
+        }
+    }
+
+    async revokeCoupon(id){
+        let SID = localStorage.getItem('JWBSID');
+        try{
+            let request = await fetch(`${this.couponURI}/?code=${id}&sid=${SID}`, {method:'DELETE', headers: this.headers});
+            let response = await request.json();
+            return response;
         }catch(error){
             console.log(error);
         }

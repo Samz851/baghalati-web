@@ -113,3 +113,13 @@
 .jwb-settings-sync-btn{
   padding: 15px;
 }
+.jwb-coupon-form{
+  background-color: white;
+  text-align: left;
+  border: 1px solid #377499;
+  border-radius: 5%;
+  padding: 10px 20px;
+}
+.jwb-coupon-form > div {
+  margin: 10px 20px;
+}

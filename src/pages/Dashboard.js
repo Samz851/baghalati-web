@@ -3,6 +3,7 @@ import { Grid, ButtonGroup, Button } from '@material-ui/core';
 import Settings from './dashboard/Settings';
 import Campaigns from './dashboard/campaigns';
 import Inventory from './dashboard/Inventory';
+import Coupons from './dashboard/Coupons';
 import Orders from './dashboard/Orders';
 import Users from './dashboard/Users';
 import Auth from '../api/Auth';
@@ -14,7 +15,7 @@ export default class Dashboard extends Component {
         super(props);
         this.state = {
             contentIndex: "Settings",
-            menue: ["Dashboard", "Campaigns", "Inventory", "Orders", "Users", "Settings", "Log Out"],
+            menue: ["Dashboard", "Campaigns", "Coupons", "Inventory", "Orders", "Users", "Settings", "Log Out"],
             syncStatus: new URLSearchParams(this.props.location.search).get("synched")
         }
     }
@@ -67,6 +68,9 @@ export default class Dashboard extends Component {
         }
         else if (this.state.contentIndex == "Users"){
           return <Users />
+        }
+        else if (this.state.contentIndex == 'Coupons'){
+          return <Coupons />
         }
     }
   render() {
