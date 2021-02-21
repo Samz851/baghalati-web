@@ -50,7 +50,7 @@ export default class Orders extends Component {
                 id: order._id,
                 items: order.checkout_items.map((item, index)=>{
                     return {
-                        name: item.item.name_ar,
+                        name: item.item.name,
                         quantity: item.quantity
                     }
                 }),
