@@ -49,10 +49,13 @@ export default class Orders extends Component {
                 status: order.status,
                 id: order._id,
                 items: order.checkout_items.map((item, index)=>{
-                    return {
-                        name: item.item.name,
-                        quantity: item.quantity
+                    if(item.item){
+                        return {
+                            name: item.item.name ?? 'Unknown',
+                            quantity: item.quantity
+                        }
                     }
+                    
                 }),
                 delivery_address: {
                     geolocation: {
