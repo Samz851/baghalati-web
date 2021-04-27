@@ -20,7 +20,7 @@ export default class Campaigns extends Component {
         this.state = { 
           openAlert: false,
           alertMsg: '',
-          banners: [],
+          banners: null,
           alertStatus: 'error',
           inputKey: 0
          };
@@ -123,7 +123,7 @@ export default class Campaigns extends Component {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                { this.state.banners.length > 0 && 
+                                { this.state.banners && 
                                 this.state.banners.map( (banner, index) => {
                                     return (
                                         <TableRow key={index}>
